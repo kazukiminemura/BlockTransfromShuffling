@@ -10,6 +10,9 @@ clear variables; close all; clc
 addpath './lib';
 
 
+% shuffling parameter
+shufParam = 1489571690;
+
 %read DCT coefficients and header
 handler = jpeg_read('Lenna.jpg');
 
@@ -26,10 +29,10 @@ c_arrayInput = handler.coef_arrays{1};
 %N8 = floor(N/8);
 
 %% DC Processing
-c_arrayInput = dc_process(c_arrayInput);
+c_arrayInput = dc_process(c_arrayInput, shufParam);
 
 %% AC Processing
-%AC_Processing;
+c_arrayInput = ac_processing(c_arrayInput, shufParam);
 
 %% Write shuffled image
 handler.quant_tables{1} = QT;

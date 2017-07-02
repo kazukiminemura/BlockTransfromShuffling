@@ -1,14 +1,10 @@
-function [C_array] = dc_process(C_arrayInput)
+function [C_array] = dc_process(C_arrayInput, shufParam)
 % ------------------------------------------
 % DC Processoings
 % Copyright (c) 2017 Kazuki Minemura
 % Written by kazuki minemuea
 % Last update: 1st July 2017
 % ------------------------------------------
-
-% shuffling parameter
-shufParam = 1489571690;
-
 
 [M,N]=size(C_arrayInput);
 M8 = floor(M/8);
