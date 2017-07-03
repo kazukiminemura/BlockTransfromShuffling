@@ -154,8 +154,15 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "optimize_coding",      /* flag to optimize huffman tables */
     "comp_info",            /* component info struct array */
     "progressive_mode",     /* is progressive mode */
+    "jpeg_width",           /* added in 9b*/
+    "jpeg_height",           /* added in 9b*/
+    "block_size",           /* added in 9b*/
+    "max_h_samp_factor",    /* added in 9b*/
+    "max_v_samp_factor",     /* added in 9b*/
+    "min_DCT_h_scaled_size", /* added in 9b*/
+    "min_DCT_v_scaled_size", /* added in 9b*/
   };
-  const int num_jobj_fields = 14;
+  const int num_jobj_fields = 21;
 
   /* field names comp_info struct */
   const char *comp_field_names[] = {
@@ -247,7 +254,25 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxCDS(cinfo.num_components));
   mxSetField(mxjpeg_obj,0,"progressive_mode",
     mxCDS(cinfo.progressive_mode));
-
+  
+  /* adjust 9b */
+  mxSetField(mxjpeg_obj,0,"jpeg_width",
+    mxCDS(cinfo.image_width));
+  mxSetField(mxjpeg_obj,0,"jpeg_height",
+    mxCDS(cinfo.image_height));
+  mxSetField(mxjpeg_obj,0,"block_size",
+    mxCDS(cinfo.block_size));
+  mxSetField(mxjpeg_obj,0,"max_h_samp_factor",
+    mxCDS(cinfo.max_h_samp_factor));
+  mxSetField(mxjpeg_obj,0,"max_v_samp_factor",
+    mxCDS(cinfo.max_v_samp_factor));
+  mxSetField(mxjpeg_obj,0,"min_DCT_h_scaled_size",
+    mxCDS(cinfo.min_DCT_h_scaled_size));
+  mxSetField(mxjpeg_obj,0,"min_DCT_v_scaled_size",
+    mxCDS(cinfo.min_DCT_v_scaled_size));  
+  
+  
+  
   /* set optimize_coding flag for jpeg_write() */
   mxSetField(mxjpeg_obj,0,"optimize_coding",mxCDS(FALSE));
 

@@ -51,7 +51,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <jerror.h>
-#include "jpeglib.h"
+#include <jpeglib.h>
 #include <setjmp.h>
 #include <jpegint.h>
 #include "mex.h"
@@ -150,7 +150,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     fclose(outfile);
     mexErrMsgTxt("Error writing to file.");
   }
-
+ 
   /* set the input */
   mxjpeg_obj = prhs[0];
 
@@ -185,6 +185,22 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     if ((int) mxGetScalar(mxGetField(mxjpeg_obj,0,"progressive_mode")))
       jpeg_simple_progression(&cinfo);
   }
+  
+  /* adjust to 9b */
+  cinfo.jpeg_width =
+    (int) mxGetScalar(mxGetField(mxjpeg_obj,0,"jpeg_width"));
+  cinfo.jpeg_height =
+    (int) mxGetScalar(mxGetField(mxjpeg_obj,0,"jpeg_height"));  
+  cinfo.block_size =
+    (int) mxGetScalar(mxGetField(mxjpeg_obj,0,"block_size"));
+  cinfo.max_h_samp_factor =
+    (int) mxGetScalar(mxGetField(mxjpeg_obj,0,"max_h_samp_factor"));
+  cinfo.max_v_samp_factor =
+    (int) mxGetScalar(mxGetField(mxjpeg_obj,0,"max_v_samp_factor"));
+  cinfo.min_DCT_h_scaled_size =
+    (int) mxGetScalar(mxGetField(mxjpeg_obj,0,"min_DCT_h_scaled_size"));
+  cinfo.min_DCT_v_scaled_size =
+    (int) mxGetScalar(mxGetField(mxjpeg_obj,0,"min_DCT_v_scaled_size"));
 
   /* obtain the component array from the jpeg object  */
   mxcomp_info = mxGetField(mxjpeg_obj,0,"comp_info");
@@ -356,10 +372,10 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
      mxFree(comment);   
   }
 
+  
   /* done with cinfo */
   jpeg_finish_compress(&cinfo);
   jpeg_destroy_compress(&cinfo);
-
   /* close the file */
   fclose(outfile);
 }
