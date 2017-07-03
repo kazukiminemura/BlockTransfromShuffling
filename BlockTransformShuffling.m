@@ -17,8 +17,8 @@ shufParam = 1489571690;
 handler = jpeg_read('Lenna.jpg');
 
 % change quantization values to 255
-QT = handler.quant_tables{1};
-QT(:,:) = 255;
+%QT = handler.quant_tables{1};
+%QT(:,:) = 255;
 
 % extract DCT coefficients
 c_arrayInput = handler.coef_arrays{1};
@@ -29,12 +29,12 @@ c_arrayInput = handler.coef_arrays{1};
 %N8 = floor(N/8);
 
 %% DC Processing
-c_arrayInput = dc_process(c_arrayInput, shufParam);
+c_array = dc_process(c_arrayInput, shufParam);
 
 %% AC Processing
-c_arrayInput = ac_processing(c_arrayInput, shufParam);
+c_array = ac_processing(c_array, shufParam);
 
 %% Write shuffled image
-handler.quant_tables{1} = QT;
-handler.coef_arrays{1} = C_arrayOutput;
+handler.coef_arrays{1} = c_array;
+%imshow(c_array);
 jpeg_write(handler, 'Shuffled.jpg')
