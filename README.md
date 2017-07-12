@@ -1,9 +1,9 @@
 # BlockTransfromShuffling
 
-Original image
+Original image　　 
 ![alt original](https://github.com/kazukiminemura/BlockTransfromShuffling/blob/master/Lenna.jpg)
 
-to
+to　　
 
-Shuffled image
+Shuffled image　　
 ![alt shuffled](https://github.com/kazukiminemura/BlockTransfromShuffling/blob/master/Shuffled.jpg)
